@@ -1,0 +1,207 @@
+### ASSIGNMENT 01 ###
+# Name : Rahane Arati Bhagwat
+# Batch : B3
+# Roll No : 46
+# Assignment tittle:: Text pre-processing using NLP Operations : perform Tokenization,
+#                     Stop word removal, Lemmatization, Parts of speech using any sample text.
+
+#import library
+import spacy
+#language model loaded
+nlp = spacy.load("en_core_web_sm")
+about_text = (
+    "India's producion of rice and wheat"
+    " hit all time highs in recent"
+    " year. According to the ministry of agriculture"
+    " and farmers welfare."
+)
+
+## A - Tokenization ##
+about_doc = nlp(about_text)
+
+for token in about_doc:
+    print (token, token.idx)
+
+
+## B - Stop words removal ##
+about_doc = nlp(about_text)
+print([token for token in about_doc if not token.is_stop])
+
+
+## C - Lemmatization ##
+
+about_doc = nlp(about_text)
+for token in about_doc:
+    if str(token) != str(token.lemma_):
+        print(f"{str(token):>20} : {str(token.lemma_)}")
+
+
+## D - Parts of Speech ##
+
+about_doc = nlp(about_text)
+for token in about_doc:
+    print(
+        f"""
+TOKEN: {str(token)}
+=====
+TAG: {str(token.tag_):10} POS: {token.pos_}
+EXPLANATION: {spacy.explain(token.tag_)}"""
+    )
+
+# OUTPUT :
+"""India 0
+'s 5
+producion 8
+of 18
+rice 21
+and 26
+wheat 30
+hit 36
+all 40
+time 44
+highs 49
+in 55
+recent 58
+year 65
+. 69
+According 71
+to 81
+the 84
+ministry 88
+of 97
+agriculture 100
+and 112
+farmers 116
+welfare 124
+. 131
+
+[India, producion, rice, wheat, hit, time, highs, recent, year, ., According, ministry, agriculture, farmers, welfare, .]
+
+               highs : high
+           According : accord
+             farmers : farmer
+
+TOKEN: India
+=====
+TAG: NNP        POS: PROPN
+EXPLANATION: noun, proper singular
+
+TOKEN: 's
+=====
+TAG: POS        POS: PART
+EXPLANATION: possessive ending
+
+TOKEN: producion
+=====
+TAG: NN         POS: NOUN
+EXPLANATION: noun, singular or mass
+
+TOKEN: of
+=====
+TAG: IN         POS: ADP
+EXPLANATION: conjunction, subordinating or preposition
+
+TOKEN: rice
+=====
+TAG: NN         POS: NOUN
+EXPLANATION: noun, singular or mass
+
+TOKEN: and
+=====
+TAG: CC         POS: CCONJ
+EXPLANATION: conjunction, coordinating
+
+TOKEN: wheat
+=====
+TAG: NN         POS: NOUN
+EXPLANATION: noun, singular or mass
+
+TOKEN: hit
+=====
+TAG: VBD        POS: VERB
+EXPLANATION: verb, past tense
+
+TOKEN: all
+=====
+TAG: DT         POS: DET
+EXPLANATION: determiner
+
+TOKEN: time
+=====
+TAG: NN         POS: NOUN
+EXPLANATION: noun, singular or mass
+
+TOKEN: highs
+=====
+TAG: NNS        POS: NOUN
+EXPLANATION: noun, plural
+
+TOKEN: in
+=====
+TAG: IN         POS: ADP
+EXPLANATION: conjunction, subordinating or preposition
+
+TOKEN: recent
+=====
+TAG: JJ         POS: ADJ
+EXPLANATION: adjective (English), other noun-modifier (Chinese)
+
+TOKEN: year
+=====
+TAG: NN         POS: NOUN
+EXPLANATION: noun, singular or mass
+
+TOKEN: .
+=====
+TAG: .          POS: PUNCT
+EXPLANATION: punctuation mark, sentence closer
+
+TOKEN: According
+=====
+TAG: VBG        POS: VERB
+EXPLANATION: verb, gerund or present participle
+
+TOKEN: to
+=====
+TAG: IN         POS: ADP
+EXPLANATION: conjunction, subordinating or preposition
+
+TOKEN: the
+=====
+TAG: DT         POS: DET
+EXPLANATION: determiner
+
+TOKEN: ministry
+=====
+TAG: NNP        POS: PROPN
+EXPLANATION: noun, proper singular
+
+TOKEN: of
+=====
+TAG: IN         POS: ADP
+EXPLANATION: conjunction, subordinating or preposition
+
+TOKEN: agriculture
+=====
+TAG: NNP        POS: PROPN
+EXPLANATION: noun, proper singular
+
+TOKEN: and
+=====
+TAG: CC         POS: CCONJ
+EXPLANATION: conjunction, coordinating
+
+TOKEN: farmers
+=====
+TAG: NNS        POS: NOUN
+EXPLANATION: noun, plural
+
+TOKEN: welfare
+=====
+TAG: VBP        POS: VERB
+EXPLANATION: verb, non-3rd person singular present
+
+TOKEN: .
+=====
+TAG: .          POS: PUNCT
+EXPLANATION: punctuation mark, sentence closer"""
